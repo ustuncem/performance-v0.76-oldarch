@@ -1,0 +1,54 @@
+{
+  "language": "English",
+  "screens": {
+    "onboarding": {
+      "skip": "Skip",
+      "next": "Next",
+      "welcome": "Welcome to buum-e.",
+      "welcomeDescription": "Discover special offers just for you and start benefiting from campaigns immediately!",
+      "discover": "Discover nearby offers",
+      "discoverDescription": "We need your location to show you the nearest campaigns and offers.",
+      "qrCode": "Get discount with QR code",
+      "qrCodeDescription": "Show the QR code to the businesses, and benefit from discounts quickly and easily!",
+      "maps": "Explore with buum-e Maps",
+      "mapsDescription": "Discover nearby businesses, view discounts, and easily get route information. Start saving with buum-e Maps!",
+      "notifications": "Get instant notifications",
+      "notificationsDescription": "Allow notifications to stay informed about the hottest offers near you.",
+      "ready": "Ready to start?",
+      "readyDescription": "Sign up now and start discovering discounts!"
+    },
+    "login": {
+      "title": "Login",
+      "headerTitle": "Login",
+      "headerDescription": "Please enter your phone number to login.",
+      "linkText": "Don't have an account? Register!",
+      "submitButton": "Login",
+      "telephoneNumber": "Telephone Number",
+      "otpSheetDescription": "Please enter the 6-digit verification code we sent to <bold>{{number}}</bold>.",
+      "otpSheetTitle": "Verification Code",
+      "otpSheetCode": "Confirm Code",
+      "otpSheetCodeNotFound": "Didn't receive the code?",
+      "loginSuccess": "Please enter the code sent to your phone.",
+      "otpSuccess": "Welcome back, Cem!",
+      "locationPermissionDenied": "Location permission denied. You can only enable it in settings.",
+      "notificationsPermissionDenied": "Notifications permission denied. You can only enable it in settings."
+    },
+    "register": {
+      "title": "Register",
+      "headerTitle": "Create new account",
+      "headerDescription": "Sign up now and start discovering discounts!",
+      "linkText": "Already have an account? Login here!",
+      "submitButton": "Start Exploring!",
+      "firstStepTitle": "Get started now!",
+      "firstStepDescription": "Sign up now and start discovering discounts!",
+      "firstStepSuccess": "Please enter the code sent to your phone.",
+      "otpSuccess": "Welcome aboard! Complete your profile and customize your experience!"
+    }
+  },
+  "forms": {
+    "required": "This field is required.",
+    "invalidPhoneNumber": "Invalid phone number format. Use 0(555) 555 55 55.",
+    "invalidEmail": "Please enter a valid email address.",
+    "containsDigit": "This field cannot contain numbers."
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "language": "Türkçe",
+  "screens": {
+    "onboarding": {
+      "skip": "Atla",
+      "next": "Sonraki",
+      "welcome": "buum-e'ye hoş geldin.",
+      "welcomeDescription": "Sana özel fırsatları keşfet, kampanyalardan hemen yararlanmaya başla!",
+      "discover": "Yakınındaki fırsatları keşfet",
+      "discoverDescription": "En yakın kampanya ve fırsatları sana gösterebilmemiz için konum bilgine ihtiyacımız var.",
+      "discoverCta": "Konum paylaş",
+      "qrCode": "QR kodla indirim al",
+      "qrCodeDescription": "İşletmelere QR kodunu göster, hızlı ve pratik bir şekilde indirimlerden yararlan!",
+      "qrCodeCta": "QR kodu göster",
+      "maps": "buum-e Haritalar'la keşfe çık",
+      "mapsDescription": "Yakınınızdaki işletmeleri keşfedin, indirimleri görün ve kolayca yol tarifi alın. buum-e Haritalarla tasarrufa başlayın!",
+      "notifications": "Anında haberin olsun",
+      "notificationsDescription": "Yakınındaki sıcak fırsatlardan haberdar olmak için bildirimlere izin ver.",
+      "notificationsCta": "Bildirimleri aç",
+      "ready": "Başlamak için hazırsın",
+      "readyDescription": "Şimdi kaydol ve indirimleri keşfetmeye başla!",
+      "readyCta": "Şimdi kaydol",
+      "locationPermissionDenied": "Konum iznini reddettin. Bunu sadece ayarlardan açabilirsin.",
+      "notificationsPermissionDenied": "Bildirimler göndermemizi reddettin. Bunu sadece ayarlardan açabilirsin."
+    },
+    "login": {
+      "title": "Giriş Yap",
+      "headerTitle": "Hoş geldin!",
+      "headerDescription": "Giriş yapmak için lütfen telefon numaranı gir.",
+      "linkText": "Hesabın yok mu? Kayıt ol!",
+      "submitButton": "Giriş Yap",
+      "telephoneNumber": "Telefon Numarası",
+      "otpSheetDescription": "Lütfen <bold>{{number}}</bold> numarasına gönderdiğimiz 6 haneli doğrulama kodunu girin.",
+      "otpSheetTitle": "Doğrulama Kodu",
+      "otpSheetCode": "Kodu Onayla",
+      "otpSheetCodeNotFound": "Kodu almadın mı?",
+      "loginSuccess": "Lütfen telefonuna gelen kodu gir.",
+      "otpSuccess": "Tekrardan hoş geldin, Cem!"
+    },
+    "register": {
+      "title": "Kayıt Ol",
+      "headerTitle": "Yeni hesap oluştur",
+      "headerDescription": "Hemen kaydol ve indirimlerden yararlanmaya başla!",
+      "linkText": "Hesabın var mı? Buradan giriş yapabilirsin!",
+      "submitButton": "Keşfetmeye Başla!",
+      "firstStepTitle": "Hemen başlayın!",
+      "firstStepDescription": "Kayıt olmak için lütfen telefon numaranı gir.",
+      "firstStepSuccess": "Lütfen telefonuna gelen kodu gir.",
+      "otpSuccess": "Aramıza hoş geldin! Profilini tamamla, deneyimini özelleştir!"
+    }
+  },
+  "forms": {
+    "required": "Bu alan zorunludur.",
+    "invalidPhoneNumber": "Geçersiz telefon numarası formatı. 0(555) 555 55 55 şeklinde girin.",
+    "invalidEmail": "Lütfen geçerli bir e-posta adresi gir.",
+    "containsDigit": "Bu alan sayı içeremez."
+  }
+}

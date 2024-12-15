@@ -1,0 +1,408 @@
+diff --git a/node_modules/react-native-unistyles/.DS_Store b/node_modules/react-native-unistyles/.DS_Store
+new file mode 100644
+index 0000000..5008ddf
+Binary files /dev/null and b/node_modules/react-native-unistyles/.DS_Store differ
+diff --git a/node_modules/react-native-unistyles/lib/commonjs/core/withUnistyles/useDependencies.js b/node_modules/react-native-unistyles/lib/commonjs/core/withUnistyles/useDependencies.js
+index b0c2837..829b597 100644
+--- a/node_modules/react-native-unistyles/lib/commonjs/core/withUnistyles/useDependencies.js
++++ b/node_modules/react-native-unistyles/lib/commonjs/core/withUnistyles/useDependencies.js
+@@ -9,6 +9,10 @@ var _specs = require("../../specs");
+ var _NativePlatform = require("../../specs/NativePlatform");
+ // It's imported that way because of circular dependency
+ 
++const getMiniRuntime = () => {
++  // @ts-expect-error This is hidden from TS
++  return _specs.UnistylesRuntime.miniRuntime;
++};
+ const RTDependencyMap = {
+   breakpoint: _NativePlatform.UnistyleDependency.Breakpoints,
+   colorScheme: _NativePlatform.UnistyleDependency.ColorScheme,
+@@ -55,7 +59,7 @@ const useDependencies = listener => {
+           return target[prop];
+         }
+       });
+-      const proxifiedRuntime = new Proxy(_specs.UnistylesRuntime.miniRuntime, {
++      const proxifiedRuntime = new Proxy(getMiniRuntime(), {
+         get: (target, prop) => {
+           if (prop in RTDependencyMap) {
+             dependencies.add(RTDependencyMap[prop]);
+diff --git a/node_modules/react-native-unistyles/lib/commonjs/core/withUnistyles/useDependencies.js.map b/node_modules/react-native-unistyles/lib/commonjs/core/withUnistyles/useDependencies.js.map
+index 1204050..eab0da9 100644
+--- a/node_modules/react-native-unistyles/lib/commonjs/core/withUnistyles/useDependencies.js.map
++++ b/node_modules/react-native-unistyles/lib/commonjs/core/withUnistyles/useDependencies.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["_react","require","_specs","_NativePlatform","RTDependencyMap","breakpoint","UnistyleDependency","Breakpoints","colorScheme","ColorScheme","contentSizeCategory","ContentSizeCategory","hasAdaptiveThemes","AdaptiveThemes","insets","Insets","fontScale","FontScale","isLandscape","Orientation","isPortrait","navigationBar","NavigationBar","screen","Dimensions","statusBar","StatusBar","pixelRatio","PixelRatio","themeName","ThemeName","useDependencies","listener","scopedTheme","UnistylesShadowRegistry","getScopedTheme","dependencies","useState","Set","theme","setTheme","UnistylesRuntime","getTheme","_","runtimeChanged","useReducer","disposeRef","useRef","reinitListener","current","Array","from","updateTheme","updateRuntime","useEffect","size","mappingsCallback","callback","proxifiedTheme","Proxy","get","target","prop","add","Theme","proxifiedRuntime","miniRuntime","addDependencies","newDependencies","dependenciesSize","forEach","dependency","exports"],"sourceRoot":"../../../../src","sources":["core/withUnistyles/useDependencies.ts"],"mappings":"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","ignoreList":[]}
++{"version":3,"names":["_react","require","_specs","_NativePlatform","getMiniRuntime","UnistylesRuntime","miniRuntime","RTDependencyMap","breakpoint","UnistyleDependency","Breakpoints","colorScheme","ColorScheme","contentSizeCategory","ContentSizeCategory","hasAdaptiveThemes","AdaptiveThemes","insets","Insets","fontScale","FontScale","isLandscape","Orientation","isPortrait","navigationBar","NavigationBar","screen","Dimensions","statusBar","StatusBar","pixelRatio","PixelRatio","themeName","ThemeName","useDependencies","listener","scopedTheme","UnistylesShadowRegistry","getScopedTheme","dependencies","useState","Set","theme","setTheme","getTheme","_","runtimeChanged","useReducer","disposeRef","useRef","reinitListener","current","Array","from","updateTheme","updateRuntime","useEffect","size","mappingsCallback","callback","proxifiedTheme","Proxy","get","target","prop","add","Theme","proxifiedRuntime","addDependencies","newDependencies","dependenciesSize","forEach","dependency","exports"],"sourceRoot":"../../../../src","sources":["core/withUnistyles/useDependencies.ts"],"mappings":"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","ignoreList":[]}
+diff --git a/node_modules/react-native-unistyles/lib/commonjs/index.js b/node_modules/react-native-unistyles/lib/commonjs/index.js
+index 626187a..833829a 100644
+--- a/node_modules/react-native-unistyles/lib/commonjs/index.js
++++ b/node_modules/react-native-unistyles/lib/commonjs/index.js
+@@ -3,15 +3,6 @@
+ Object.defineProperty(exports, "__esModule", {
+   value: true
+ });
+-var _exportNames = {
+-  mq: true,
+-  createUnistylesComponent: true,
+-  withUnistyles: true,
+-  Display: true,
+-  Hide: true,
+-  Variants: true,
+-  ScopedTheme: true
+-};
+ Object.defineProperty(exports, "Display", {
+   enumerable: true,
+   get: function () {
+@@ -24,12 +15,36 @@ Object.defineProperty(exports, "Hide", {
+     return _components.Hide;
+   }
+ });
++Object.defineProperty(exports, "NavigationBar", {
++  enumerable: true,
++  get: function () {
++    return _specs.NavigationBar;
++  }
++});
+ Object.defineProperty(exports, "ScopedTheme", {
+   enumerable: true,
+   get: function () {
+     return _components.ScopedTheme;
+   }
+ });
++Object.defineProperty(exports, "StatusBar", {
++  enumerable: true,
++  get: function () {
++    return _specs.StatusBar;
++  }
++});
++Object.defineProperty(exports, "StyleSheet", {
++  enumerable: true,
++  get: function () {
++    return _specs.StyleSheet;
++  }
++});
++Object.defineProperty(exports, "UnistylesRuntime", {
++  enumerable: true,
++  get: function () {
++    return _specs.UnistylesRuntime;
++  }
++});
+ Object.defineProperty(exports, "Variants", {
+   enumerable: true,
+   get: function () {
+@@ -55,17 +70,6 @@ Object.defineProperty(exports, "withUnistyles", {
+   }
+ });
+ var _specs = require("./specs");
+-Object.keys(_specs).forEach(function (key) {
+-  if (key === "default" || key === "__esModule") return;
+-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+-  if (key in exports && exports[key] === _specs[key]) return;
+-  Object.defineProperty(exports, key, {
+-    enumerable: true,
+-    get: function () {
+-      return _specs[key];
+-    }
+-  });
+-});
+ var _mq = require("./mq");
+ var _core = require("./core");
+ var _components = require("./components");
+diff --git a/node_modules/react-native-unistyles/lib/commonjs/index.js.map b/node_modules/react-native-unistyles/lib/commonjs/index.js.map
+index 8342d2a..2c6bf72 100644
+--- a/node_modules/react-native-unistyles/lib/commonjs/index.js.map
++++ b/node_modules/react-native-unistyles/lib/commonjs/index.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["_specs","require","Object","keys","forEach","key","prototype","hasOwnProperty","call","_exportNames","exports","defineProperty","enumerable","get","_mq","_core","_components"],"sourceRoot":"../../src","sources":["index.ts"],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,IAAAA,MAAA,GAAAC,OAAA;AAAAC,MAAA,CAAAC,IAAA,CAAAH,MAAA,EAAAI,OAAA,WAAAC,GAAA;EAAA,IAAAA,GAAA,kBAAAA,GAAA;EAAA,IAAAH,MAAA,CAAAI,SAAA,CAAAC,cAAA,CAAAC,IAAA,CAAAC,YAAA,EAAAJ,GAAA;EAAA,IAAAA,GAAA,IAAAK,OAAA,IAAAA,OAAA,CAAAL,GAAA,MAAAL,MAAA,CAAAK,GAAA;EAAAH,MAAA,CAAAS,cAAA,CAAAD,OAAA,EAAAL,GAAA;IAAAO,UAAA;IAAAC,GAAA,WAAAA,CAAA;MAAA,OAAAb,MAAA,CAAAK,GAAA;IAAA;EAAA;AAAA;AACA,IAAAS,GAAA,GAAAb,OAAA;AAEA,IAAAc,KAAA,GAAAd,OAAA;AAEA,IAAAe,WAAA,GAAAf,OAAA","ignoreList":[]}
++{"version":3,"names":["_specs","require","_mq","_core","_components"],"sourceRoot":"../../src","sources":["index.ts"],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,IAAAA,MAAA,GAAAC,OAAA;AACA,IAAAC,GAAA,GAAAD,OAAA;AAEA,IAAAE,KAAA,GAAAF,OAAA;AAEA,IAAAG,WAAA,GAAAH,OAAA","ignoreList":[]}
+diff --git a/node_modules/react-native-unistyles/lib/commonjs/web/index.js b/node_modules/react-native-unistyles/lib/commonjs/web/index.js
+index ed0fe25..b555e0b 100644
+--- a/node_modules/react-native-unistyles/lib/commonjs/web/index.js
++++ b/node_modules/react-native-unistyles/lib/commonjs/web/index.js
+@@ -5,27 +5,13 @@ Object.defineProperty(exports, "__esModule", {
+ });
+ var _exportNames = {
+   StyleSheet: true,
+-  UnistylesRuntime: true,
+-  UnistylesShadowRegistry: true
++  UnistylesRuntime: true
+ };
+-exports.StyleSheet = void 0;
+-Object.defineProperty(exports, "UnistylesRuntime", {
+-  enumerable: true,
+-  get: function () {
+-    return _runtime.UnistylesRuntime;
+-  }
+-});
+-Object.defineProperty(exports, "UnistylesShadowRegistry", {
+-  enumerable: true,
+-  get: function () {
+-    return _shadowRegistry.UnistylesShadowRegistry;
+-  }
+-});
++exports.UnistylesRuntime = exports.StyleSheet = void 0;
+ var _create = require("./create");
+ var _state = require("./state");
+ var _utils = require("../utils");
+ var _runtime = require("./runtime");
+-var _shadowRegistry = require("./shadowRegistry");
+ var _mock = require("./mock");
+ Object.keys(_mock).forEach(function (key) {
+   if (key === "default" || key === "__esModule") return;
+@@ -38,6 +24,18 @@ Object.keys(_mock).forEach(function (key) {
+     }
+   });
+ });
++var _shadowRegistry = require("./shadowRegistry");
++Object.keys(_shadowRegistry).forEach(function (key) {
++  if (key === "default" || key === "__esModule") return;
++  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
++  if (key in exports && exports[key] === _shadowRegistry[key]) return;
++  Object.defineProperty(exports, key, {
++    enumerable: true,
++    get: function () {
++      return _shadowRegistry[key];
++    }
++  });
++});
+ const StyleSheet = exports.StyleSheet = {
+   configure: _state.UnistylesState.init,
+   create: _create.create,
+@@ -59,4 +57,5 @@ const StyleSheet = exports.StyleSheet = {
+   flatten: (...styles) => (0, _utils.deepMergeObjects)(...styles),
+   hairlineWidth: 1
+ };
++const UnistylesRuntime = exports.UnistylesRuntime = _runtime.UnistylesRuntime;
+ //# sourceMappingURL=index.js.map
+\ No newline at end of file
+diff --git a/node_modules/react-native-unistyles/lib/commonjs/web/index.js.map b/node_modules/react-native-unistyles/lib/commonjs/web/index.js.map
+index a190ead..9381f9a 100644
+--- a/node_modules/react-native-unistyles/lib/commonjs/web/index.js.map
++++ b/node_modules/react-native-unistyles/lib/commonjs/web/index.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["_create","require","_state","_utils","_runtime","_shadowRegistry","_mock","Object","keys","forEach","key","prototype","hasOwnProperty","call","_exportNames","exports","defineProperty","enumerable","get","StyleSheet","configure","UnistylesState","init","create","absoluteFill","position","left","top","right","bottom","absoluteFillObject","compose","a","b","deepMergeObjects","flatten","styles","hairlineWidth"],"sourceRoot":"../../../src","sources":["web/index.ts"],"mappings":";;;;;;;;;;;;;;;;;;;;;;;AAAA,IAAAA,OAAA,GAAAC,OAAA;AACA,IAAAC,MAAA,GAAAD,OAAA;AACA,IAAAE,MAAA,GAAAF,OAAA;AAyBA,IAAAG,QAAA,GAAAH,OAAA;AACA,IAAAI,eAAA,GAAAJ,OAAA;AACA,IAAAK,KAAA,GAAAL,OAAA;AAAAM,MAAA,CAAAC,IAAA,CAAAF,KAAA,EAAAG,OAAA,WAAAC,GAAA;EAAA,IAAAA,GAAA,kBAAAA,GAAA;EAAA,IAAAH,MAAA,CAAAI,SAAA,CAAAC,cAAA,CAAAC,IAAA,CAAAC,YAAA,EAAAJ,GAAA;EAAA,IAAAA,GAAA,IAAAK,OAAA,IAAAA,OAAA,CAAAL,GAAA,MAAAJ,KAAA,CAAAI,GAAA;EAAAH,MAAA,CAAAS,cAAA,CAAAD,OAAA,EAAAL,GAAA;IAAAO,UAAA;IAAAC,GAAA,WAAAA,CAAA;MAAA,OAAAZ,KAAA,CAAAI,GAAA;IAAA;EAAA;AAAA;AAxBO,MAAMS,UAAU,GAAAJ,OAAA,CAAAI,UAAA,GAAG;EACtBC,SAAS,EAAEC,qBAAc,CAACC,IAAI;EAC9BC,MAAM,EAAEA,cAAmC;EAC3CC,YAAY,EAAE;IACVC,QAAQ,EAAE,UAAU;IACpBC,IAAI,EAAE,CAAC;IACPC,GAAG,EAAE,CAAC;IACNC,KAAK,EAAE,CAAC;IACRC,MAAM,EAAE;EACZ,CAAC;EACDC,kBAAkB,EAAE;IAChBL,QAAQ,EAAE,UAAU;IACpBC,IAAI,EAAE,CAAC;IACPC,GAAG,EAAE,CAAC;IACNC,KAAK,EAAE,CAAC;IACRC,MAAM,EAAE;EACZ,CAAC;EACDE,OAAO,EAAEA,CAACC,CAAS,EAAEC,CAAS,KAAK,IAAAC,uBAAgB,EAACF,CAAC,EAAEC,CAAC,CAAC;EACzDE,OAAO,EAAEA,CAAC,GAAGC,MAAqB,KAAK,IAAAF,uBAAgB,EAAC,GAAGE,MAAM,CAAC;EAClEC,aAAa,EAAE;AACnB,CAAC","ignoreList":[]}
++{"version":3,"names":["_create","require","_state","_utils","_runtime","_mock","Object","keys","forEach","key","prototype","hasOwnProperty","call","_exportNames","exports","defineProperty","enumerable","get","_shadowRegistry","StyleSheet","configure","UnistylesState","init","create","absoluteFill","position","left","top","right","bottom","absoluteFillObject","compose","a","b","deepMergeObjects","flatten","styles","hairlineWidth","UnistylesRuntime","UnistylesRuntimeWeb"],"sourceRoot":"../../../src","sources":["web/index.ts"],"mappings":";;;;;;;;;;AAAA,IAAAA,OAAA,GAAAC,OAAA;AACA,IAAAC,MAAA,GAAAD,OAAA;AACA,IAAAE,MAAA,GAAAF,OAAA;AAEA,IAAAG,QAAA,GAAAH,OAAA;AA2BA,IAAAI,KAAA,GAAAJ,OAAA;AAAAK,MAAA,CAAAC,IAAA,CAAAF,KAAA,EAAAG,OAAA,WAAAC,GAAA;EAAA,IAAAA,GAAA,kBAAAA,GAAA;EAAA,IAAAH,MAAA,CAAAI,SAAA,CAAAC,cAAA,CAAAC,IAAA,CAAAC,YAAA,EAAAJ,GAAA;EAAA,IAAAA,GAAA,IAAAK,OAAA,IAAAA,OAAA,CAAAL,GAAA,MAAAJ,KAAA,CAAAI,GAAA;EAAAH,MAAA,CAAAS,cAAA,CAAAD,OAAA,EAAAL,GAAA;IAAAO,UAAA;IAAAC,GAAA,WAAAA,CAAA;MAAA,OAAAZ,KAAA,CAAAI,GAAA;IAAA;EAAA;AAAA;AACA,IAAAS,eAAA,GAAAjB,OAAA;AAAAK,MAAA,CAAAC,IAAA,CAAAW,eAAA,EAAAV,OAAA,WAAAC,GAAA;EAAA,IAAAA,GAAA,kBAAAA,GAAA;EAAA,IAAAH,MAAA,CAAAI,SAAA,CAAAC,cAAA,CAAAC,IAAA,CAAAC,YAAA,EAAAJ,GAAA;EAAA,IAAAA,GAAA,IAAAK,OAAA,IAAAA,OAAA,CAAAL,GAAA,MAAAS,eAAA,CAAAT,GAAA;EAAAH,MAAA,CAAAS,cAAA,CAAAD,OAAA,EAAAL,GAAA;IAAAO,UAAA;IAAAC,GAAA,WAAAA,CAAA;MAAA,OAAAC,eAAA,CAAAT,GAAA;IAAA;EAAA;AAAA;AAzBO,MAAMU,UAAU,GAAAL,OAAA,CAAAK,UAAA,GAAG;EACtBC,SAAS,EAAEC,qBAAc,CAACC,IAAI;EAC9BC,MAAM,EAAEA,cAAM;EACdC,YAAY,EAAE;IACVC,QAAQ,EAAE,UAAU;IACpBC,IAAI,EAAE,CAAC;IACPC,GAAG,EAAE,CAAC;IACNC,KAAK,EAAE,CAAC;IACRC,MAAM,EAAE;EACZ,CAAC;EACDC,kBAAkB,EAAE;IAChBL,QAAQ,EAAE,UAAU;IACpBC,IAAI,EAAE,CAAC;IACPC,GAAG,EAAE,CAAC;IACNC,KAAK,EAAE,CAAC;IACRC,MAAM,EAAE;EACZ,CAAC;EACDE,OAAO,EAAEA,CAACC,CAAS,EAAEC,CAAS,KAAK,IAAAC,uBAAgB,EAACF,CAAC,EAAEC,CAAC,CAAC;EACzDE,OAAO,EAAEA,CAAC,GAAGC,MAAqB,KAAK,IAAAF,uBAAgB,EAAC,GAAGE,MAAM,CAAC;EAClEC,aAAa,EAAE;AACnB,CAAuC;AAEhC,MAAMC,gBAAgB,GAAAxB,OAAA,CAAAwB,gBAAA,GAAGC,yBAA+D","ignoreList":[]}
+diff --git a/node_modules/react-native-unistyles/lib/module/core/withUnistyles/useDependencies.js b/node_modules/react-native-unistyles/lib/module/core/withUnistyles/useDependencies.js
+index 53e05f2..1f64e2e 100644
+--- a/node_modules/react-native-unistyles/lib/module/core/withUnistyles/useDependencies.js
++++ b/node_modules/react-native-unistyles/lib/module/core/withUnistyles/useDependencies.js
+@@ -4,6 +4,10 @@ import { useEffect, useReducer, useRef, useState } from 'react';
+ import { UnistylesRuntime, UnistylesShadowRegistry } from '../../specs';
+ // It's imported that way because of circular dependency
+ import { UnistyleDependency } from '../../specs/NativePlatform';
++const getMiniRuntime = () => {
++  // @ts-expect-error This is hidden from TS
++  return UnistylesRuntime.miniRuntime;
++};
+ const RTDependencyMap = {
+   breakpoint: UnistyleDependency.Breakpoints,
+   colorScheme: UnistyleDependency.ColorScheme,
+@@ -50,7 +54,7 @@ export const useDependencies = listener => {
+           return target[prop];
+         }
+       });
+-      const proxifiedRuntime = new Proxy(UnistylesRuntime.miniRuntime, {
++      const proxifiedRuntime = new Proxy(getMiniRuntime(), {
+         get: (target, prop) => {
+           if (prop in RTDependencyMap) {
+             dependencies.add(RTDependencyMap[prop]);
+diff --git a/node_modules/react-native-unistyles/lib/module/core/withUnistyles/useDependencies.js.map b/node_modules/react-native-unistyles/lib/module/core/withUnistyles/useDependencies.js.map
+index 1d65642..fac7018 100644
+--- a/node_modules/react-native-unistyles/lib/module/core/withUnistyles/useDependencies.js.map
++++ b/node_modules/react-native-unistyles/lib/module/core/withUnistyles/useDependencies.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["useEffect","useReducer","useRef","useState","UnistylesRuntime","UnistylesShadowRegistry","UnistyleDependency","RTDependencyMap","breakpoint","Breakpoints","colorScheme","ColorScheme","contentSizeCategory","ContentSizeCategory","hasAdaptiveThemes","AdaptiveThemes","insets","Insets","fontScale","FontScale","isLandscape","Orientation","isPortrait","navigationBar","NavigationBar","screen","Dimensions","statusBar","StatusBar","pixelRatio","PixelRatio","themeName","ThemeName","useDependencies","listener","scopedTheme","getScopedTheme","dependencies","Set","theme","setTheme","getTheme","_","runtimeChanged","disposeRef","reinitListener","current","Array","from","updateTheme","updateRuntime","size","mappingsCallback","callback","proxifiedTheme","Proxy","get","target","prop","add","Theme","proxifiedRuntime","miniRuntime","addDependencies","newDependencies","dependenciesSize","forEach","dependency"],"sourceRoot":"../../../../src","sources":["core/withUnistyles/useDependencies.ts"],"mappings":"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","ignoreList":[]}
++{"version":3,"names":["useEffect","useReducer","useRef","useState","UnistylesRuntime","UnistylesShadowRegistry","UnistyleDependency","getMiniRuntime","miniRuntime","RTDependencyMap","breakpoint","Breakpoints","colorScheme","ColorScheme","contentSizeCategory","ContentSizeCategory","hasAdaptiveThemes","AdaptiveThemes","insets","Insets","fontScale","FontScale","isLandscape","Orientation","isPortrait","navigationBar","NavigationBar","screen","Dimensions","statusBar","StatusBar","pixelRatio","PixelRatio","themeName","ThemeName","useDependencies","listener","scopedTheme","getScopedTheme","dependencies","Set","theme","setTheme","getTheme","_","runtimeChanged","disposeRef","reinitListener","current","Array","from","updateTheme","updateRuntime","size","mappingsCallback","callback","proxifiedTheme","Proxy","get","target","prop","add","Theme","proxifiedRuntime","addDependencies","newDependencies","dependenciesSize","forEach","dependency"],"sourceRoot":"../../../../src","sources":["core/withUnistyles/useDependencies.ts"],"mappings":";;AAAA,SAASA,SAAS,EAAEC,UAAU,EAAEC,MAAM,EAAEC,QAAQ,QAAQ,OAAO;AAC/D,SAASC,gBAAgB,EAAEC,uBAAuB,QAAmC,aAAa;AAClG;AACA,SAASC,kBAAkB,QAAQ,4BAA4B;AAI/D,MAAMC,cAAc,GAAGA,CAAA,KAA4B;EAC/C;EACA,OAAOH,gBAAgB,CAACI,WAAW;AACvC,CAAC;AAED,MAAMC,eAAe,GAAG;EACpBC,UAAU,EAAEJ,kBAAkB,CAACK,WAAW;EAC1CC,WAAW,EAAEN,kBAAkB,CAACO,WAAW;EAC3CC,mBAAmB,EAAER,kBAAkB,CAACS,mBAAmB;EAC3DC,iBAAiB,EAAEV,kBAAkB,CAACW,cAAc;EACpDC,MAAM,EAAEZ,kBAAkB,CAACa,MAAM;EACjCC,SAAS,EAAEd,kBAAkB,CAACe,SAAS;EACvCC,WAAW,EAAEhB,kBAAkB,CAACiB,WAAW;EAC3CC,UAAU,EAAElB,kBAAkB,CAACiB,WAAW;EAC1CE,aAAa,EAAEnB,kBAAkB,CAACoB,aAAa;EAC/CC,MAAM,EAAErB,kBAAkB,CAACsB,UAAU;EACrCC,SAAS,EAAEvB,kBAAkB,CAACwB,SAAS;EACvCC,UAAU,EAAEzB,kBAAkB,CAAC0B,UAAU;EACzCC,SAAS,EAAE3B,kBAAkB,CAAC4B;AAClC,CAA2E;AAQ3E,OAAO,MAAMC,eAAe,GAAIC,QAAgD,IAAK;EACjF,MAAMC,WAAW,GAAGhC,uBAAuB,CAACiC,cAAc,CAAC,CAAmB;EAC9E,MAAM,CAACC,YAAY,CAAC,GAAGpC,QAAQ,CAAC,MAAM,IAAIqC,GAAG,CAAS,CAAC,CAAC;EACxD,MAAM,CAACC,KAAK,EAAEC,QAAQ,CAAC,GAAGvC,QAAQ,CAACC,gBAAgB,CAACuC,QAAQ,CAACN,WAAW,CAAC,CAAC;EAC1E,MAAM,CAACO,CAAC,EAAEC,cAAc,CAAC,GAAG5C,UAAU,CAAC,OAAO,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC;EACtD,MAAM6C,UAAU,GAAG5C,MAAM,CAAe,CAAC;EAEzC,MAAM6C,cAAc,GAAGA,CAAA,KAAM;IACzBD,UAAU,CAACE,OAAO,GAAG,CAAC;IACtBF,UAAU,CAACE,OAAO,GAAGZ,QAAQ,CAAC;MAC1BG,YAAY,EAAEU,KAAK,CAACC,IAAI,CAACX,YAAY,CAAC;MACtCY,WAAW,EAAEA,CAAA,KAAM;QACf,IAAId,WAAW,EAAE;UACb;QACJ;QAEAK,QAAQ,CAACtC,gBAAgB,CAACuC,QAAQ,CAACN,WAAW,CAAC,CAAC;MACpD,CAAC;MACDe,aAAa,EAAEA,CAAA,KAAMP,cAAc,CAAC;IACxC,CAAC,CAAC;EACN,CAAC;EAED7C,SAAS,CAAC,MAAM;IACZ+C,cAAc,CAAC,CAAC;IAEhB,OAAO,MAAMD,UAAU,CAACE,OAAO,GAAG,CAAC;EACvC,CAAC,EAAE,CAACT,YAAY,CAACc,IAAI,CAAC,CAAC;EAEvB,OAAO;IACHC,gBAAgB,EAAGC,QAAkB,IAAK;MACtC,MAAMC,cAAc,GAAG,IAAIC,KAAK,CAAChB,KAAK,EAAE;QACpCiB,GAAG,EAAEA,CAACC,MAAM,EAAEC,IAAI,KAAK;UACnBrB,YAAY,CAACsB,GAAG,CAACvD,kBAAkB,CAACwD,KAAK,CAAC;UAE1C,OAAOH,MAAM,CAACC,IAAI,CAAC;QACvB;MACJ,CAAC,CAAC;MACF,MAAMG,gBAAgB,GAAG,IAAIN,KAAK,CAAClD,cAAc,CAAC,CAAC,EAAE;QACjDmD,GAAG,EAAEA,CAACC,MAAM,EAAEC,IAAI,KAAK;UACnB,IAAIA,IAAI,IAAInD,eAAe,EAAE;YACzB8B,YAAY,CAACsB,GAAG,CAACpD,eAAe,CAACmD,IAAI,CAAiC,CAAC;UAC3E;UAEA,OAAOD,MAAM,CAACC,IAAI,CAAwB;QAC9C;MACJ,CAAC,CAAC;MAEF,OAAOL,QAAQ,CAACC,cAAc,EAAEO,gBAAgB,CAAC;IACrD,CAAC;IACDC,eAAe,EAAGC,eAA0C,IAAK;MAC7D,MAAMC,gBAAgB,GAAG3B,YAAY,CAACc,IAAI;MAE1CY,eAAe,CAACE,OAAO,CAACC,UAAU,IAAI;QAClC7B,YAAY,CAACsB,GAAG,CAACO,UAAU,CAAC;MAChC,CAAC,CAAC;MAEF,IAAIF,gBAAgB,KAAK3B,YAAY,CAACc,IAAI,EAAE;QACxC;MACJ;MAEAN,cAAc,CAAC,CAAC;IACpB;EACJ,CAAC;AACL,CAAC","ignoreList":[]}
+diff --git a/node_modules/react-native-unistyles/lib/module/index.js b/node_modules/react-native-unistyles/lib/module/index.js
+index ba6f7af..183cb41 100644
+--- a/node_modules/react-native-unistyles/lib/module/index.js
++++ b/node_modules/react-native-unistyles/lib/module/index.js
+@@ -1,6 +1,6 @@
+ "use strict";
+ 
+-export * from './specs';
++export { StyleSheet, UnistylesRuntime, StatusBar, NavigationBar } from './specs';
+ export { mq } from './mq';
+ export { createUnistylesComponent, withUnistyles } from './core';
+ export { Display, Hide, Variants, ScopedTheme } from './components';
+diff --git a/node_modules/react-native-unistyles/lib/module/index.js.map b/node_modules/react-native-unistyles/lib/module/index.js.map
+index b28949c..c66fd72 100644
+--- a/node_modules/react-native-unistyles/lib/module/index.js.map
++++ b/node_modules/react-native-unistyles/lib/module/index.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["mq","createUnistylesComponent","withUnistyles","Display","Hide","Variants","ScopedTheme"],"sourceRoot":"../../src","sources":["index.ts"],"mappings":";;AAAA,cAAc,SAAS;AACvB,SAASA,EAAE,QAAQ,MAAM;AAEzB,SAASC,wBAAwB,EAAEC,aAAa,QAAQ,QAAQ;AAEhE,SAASC,OAAO,EAAEC,IAAI,EAAEC,QAAQ,EAAEC,WAAW,QAAQ,cAAc","ignoreList":[]}
++{"version":3,"names":["StyleSheet","UnistylesRuntime","StatusBar","NavigationBar","mq","createUnistylesComponent","withUnistyles","Display","Hide","Variants","ScopedTheme"],"sourceRoot":"../../src","sources":["index.ts"],"mappings":";;AAAA,SAASA,UAAU,EAAEC,gBAAgB,EAAEC,SAAS,EAAEC,aAAa,QAAQ,SAAS;AAChF,SAASC,EAAE,QAAQ,MAAM;AAEzB,SAASC,wBAAwB,EAAEC,aAAa,QAAQ,QAAQ;AAEhE,SAASC,OAAO,EAAEC,IAAI,EAAEC,QAAQ,EAAEC,WAAW,QAAQ,cAAc","ignoreList":[]}
+diff --git a/node_modules/react-native-unistyles/lib/module/web/index.js b/node_modules/react-native-unistyles/lib/module/web/index.js
+index 7b7879c..3164e83 100644
+--- a/node_modules/react-native-unistyles/lib/module/web/index.js
++++ b/node_modules/react-native-unistyles/lib/module/web/index.js
+@@ -3,6 +3,7 @@
+ import { create } from './create';
+ import { UnistylesState } from './state';
+ import { deepMergeObjects } from '../utils';
++import { UnistylesRuntime as UnistylesRuntimeWeb } from './runtime';
+ export const StyleSheet = {
+   configure: UnistylesState.init,
+   create: create,
+@@ -24,7 +25,7 @@ export const StyleSheet = {
+   flatten: (...styles) => deepMergeObjects(...styles),
+   hairlineWidth: 1
+ };
+-export { UnistylesRuntime } from './runtime';
+-export { UnistylesShadowRegistry } from './shadowRegistry';
++export const UnistylesRuntime = UnistylesRuntimeWeb;
+ export * from './mock';
++export * from './shadowRegistry';
+ //# sourceMappingURL=index.js.map
+\ No newline at end of file
+diff --git a/node_modules/react-native-unistyles/lib/module/web/index.js.map b/node_modules/react-native-unistyles/lib/module/web/index.js.map
+index 0fb2daa..4ca2fdb 100644
+--- a/node_modules/react-native-unistyles/lib/module/web/index.js.map
++++ b/node_modules/react-native-unistyles/lib/module/web/index.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["create","UnistylesState","deepMergeObjects","StyleSheet","configure","init","absoluteFill","position","left","top","right","bottom","absoluteFillObject","compose","a","b","flatten","styles","hairlineWidth","UnistylesRuntime","UnistylesShadowRegistry"],"sourceRoot":"../../../src","sources":["web/index.ts"],"mappings":";;AAAA,SAASA,MAAM,QAAQ,UAAU;AACjC,SAASC,cAAc,QAAQ,SAAS;AACxC,SAASC,gBAAgB,QAAQ,UAAU;AAG3C,OAAO,MAAMC,UAAU,GAAG;EACtBC,SAAS,EAAEH,cAAc,CAACI,IAAI;EAC9BL,MAAM,EAAEA,MAAmC;EAC3CM,YAAY,EAAE;IACVC,QAAQ,EAAE,UAAU;IACpBC,IAAI,EAAE,CAAC;IACPC,GAAG,EAAE,CAAC;IACNC,KAAK,EAAE,CAAC;IACRC,MAAM,EAAE;EACZ,CAAC;EACDC,kBAAkB,EAAE;IAChBL,QAAQ,EAAE,UAAU;IACpBC,IAAI,EAAE,CAAC;IACPC,GAAG,EAAE,CAAC;IACNC,KAAK,EAAE,CAAC;IACRC,MAAM,EAAE;EACZ,CAAC;EACDE,OAAO,EAAEA,CAACC,CAAS,EAAEC,CAAS,KAAKb,gBAAgB,CAACY,CAAC,EAAEC,CAAC,CAAC;EACzDC,OAAO,EAAEA,CAAC,GAAGC,MAAqB,KAAKf,gBAAgB,CAAC,GAAGe,MAAM,CAAC;EAClEC,aAAa,EAAE;AACnB,CAAC;AAED,SAASC,gBAAgB,QAAQ,WAAW;AAC5C,SAASC,uBAAuB,QAAQ,kBAAkB;AAC1D,cAAc,QAAQ","ignoreList":[]}
++{"version":3,"names":["create","UnistylesState","deepMergeObjects","UnistylesRuntime","UnistylesRuntimeWeb","StyleSheet","configure","init","absoluteFill","position","left","top","right","bottom","absoluteFillObject","compose","a","b","flatten","styles","hairlineWidth"],"sourceRoot":"../../../src","sources":["web/index.ts"],"mappings":";;AAAA,SAASA,MAAM,QAAQ,UAAU;AACjC,SAASC,cAAc,QAAQ,SAAS;AACxC,SAASC,gBAAgB,QAAQ,UAAU;AAE3C,SAASC,gBAAgB,IAAIC,mBAAmB,QAAQ,WAAW;AAGnE,OAAO,MAAMC,UAAU,GAAG;EACtBC,SAAS,EAAEL,cAAc,CAACM,IAAI;EAC9BP,MAAM,EAAEA,MAAM;EACdQ,YAAY,EAAE;IACVC,QAAQ,EAAE,UAAU;IACpBC,IAAI,EAAE,CAAC;IACPC,GAAG,EAAE,CAAC;IACNC,KAAK,EAAE,CAAC;IACRC,MAAM,EAAE;EACZ,CAAC;EACDC,kBAAkB,EAAE;IAChBL,QAAQ,EAAE,UAAU;IACpBC,IAAI,EAAE,CAAC;IACPC,GAAG,EAAE,CAAC;IACNC,KAAK,EAAE,CAAC;IACRC,MAAM,EAAE;EACZ,CAAC;EACDE,OAAO,EAAEA,CAACC,CAAS,EAAEC,CAAS,KAAKf,gBAAgB,CAACc,CAAC,EAAEC,CAAC,CAAC;EACzDC,OAAO,EAAEA,CAAC,GAAGC,MAAqB,KAAKjB,gBAAgB,CAAC,GAAGiB,MAAM,CAAC;EAClEC,aAAa,EAAE;AACnB,CAAuC;AAEvC,OAAO,MAAMjB,gBAAgB,GAAGC,mBAA+D;AAE/F,cAAc,QAAQ;AACtB,cAAc,kBAAkB","ignoreList":[]}
+diff --git a/node_modules/react-native-unistyles/lib/typescript/src/core/withUnistyles/useDependencies.d.ts.map b/node_modules/react-native-unistyles/lib/typescript/src/core/withUnistyles/useDependencies.d.ts.map
+index 6530a72..8a6573f 100644
+--- a/node_modules/react-native-unistyles/lib/typescript/src/core/withUnistyles/useDependencies.d.ts.map
++++ b/node_modules/react-native-unistyles/lib/typescript/src/core/withUnistyles/useDependencies.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"useDependencies.d.ts","sourceRoot":"","sources":["../../../../../src/core/withUnistyles/useDependencies.ts"],"names":[],"mappings":"AAGA,OAAO,EAAE,kBAAkB,EAAE,MAAM,4BAA4B,CAAA;AAE/D,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAA;AAkBvC,KAAK,aAAa,GAAG;IACjB,WAAW,EAAE,YAAY,CAAC;IAC1B,aAAa,EAAE,YAAY,CAAC;IAC5B,YAAY,EAAE,KAAK,CAAC,kBAAkB,CAAC,CAAA;CAC1C,CAAA;AAED,eAAO,MAAM,eAAe,aAAc,CAAC,KAAK,EAAE,aAAa,KAAK,YAAY;iCA6B3C,QAAQ;uCAoBF,KAAK,CAAC,kBAAkB,CAAC;CAcnE,CAAA"}
+\ No newline at end of file
++{"version":3,"file":"useDependencies.d.ts","sourceRoot":"","sources":["../../../../../src/core/withUnistyles/useDependencies.ts"],"names":[],"mappings":"AAGA,OAAO,EAAE,kBAAkB,EAAE,MAAM,4BAA4B,CAAA;AAE/D,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAA;AAuBvC,KAAK,aAAa,GAAG;IACjB,WAAW,EAAE,YAAY,CAAC;IAC1B,aAAa,EAAE,YAAY,CAAC;IAC5B,YAAY,EAAE,KAAK,CAAC,kBAAkB,CAAC,CAAA;CAC1C,CAAA;AAED,eAAO,MAAM,eAAe,aAAc,CAAC,KAAK,EAAE,aAAa,KAAK,YAAY;iCA6B3C,QAAQ;uCAoBF,KAAK,CAAC,kBAAkB,CAAC;CAcnE,CAAA"}
+\ No newline at end of file
+diff --git a/node_modules/react-native-unistyles/lib/typescript/src/index.d.ts b/node_modules/react-native-unistyles/lib/typescript/src/index.d.ts
+index f71af50..78131f9 100644
+--- a/node_modules/react-native-unistyles/lib/typescript/src/index.d.ts
++++ b/node_modules/react-native-unistyles/lib/typescript/src/index.d.ts
+@@ -1,4 +1,4 @@
+-export * from './specs';
++export { StyleSheet, UnistylesRuntime, StatusBar, NavigationBar } from './specs';
+ export { mq } from './mq';
+ export type { UnistylesThemes, UnistylesBreakpoints } from './global';
+ export { createUnistylesComponent, withUnistyles } from './core';
+diff --git a/node_modules/react-native-unistyles/lib/typescript/src/index.d.ts.map b/node_modules/react-native-unistyles/lib/typescript/src/index.d.ts.map
+index 9e38e7b..9bdaad0 100644
+--- a/node_modules/react-native-unistyles/lib/typescript/src/index.d.ts.map
++++ b/node_modules/react-native-unistyles/lib/typescript/src/index.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,SAAS,CAAA;AACvB,OAAO,EAAE,EAAE,EAAE,MAAM,MAAM,CAAA;AACzB,YAAY,EAAE,eAAe,EAAE,oBAAoB,EAAE,MAAM,UAAU,CAAA;AACrE,OAAO,EAAE,wBAAwB,EAAE,aAAa,EAAE,MAAM,QAAQ,CAAA;AAChE,YAAY,EAAE,iBAAiB,EAAE,MAAM,SAAS,CAAA;AAChD,OAAO,EAAE,OAAO,EAAE,IAAI,EAAE,QAAQ,EAAE,WAAW,EAAE,MAAM,cAAc,CAAA"}
+\ No newline at end of file
++{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,gBAAgB,EAAE,SAAS,EAAE,aAAa,EAAE,MAAM,SAAS,CAAA;AAChF,OAAO,EAAE,EAAE,EAAE,MAAM,MAAM,CAAA;AACzB,YAAY,EAAE,eAAe,EAAE,oBAAoB,EAAE,MAAM,UAAU,CAAA;AACrE,OAAO,EAAE,wBAAwB,EAAE,aAAa,EAAE,MAAM,QAAQ,CAAA;AAChE,YAAY,EAAE,iBAAiB,EAAE,MAAM,SAAS,CAAA;AAChD,OAAO,EAAE,OAAO,EAAE,IAAI,EAAE,QAAQ,EAAE,WAAW,EAAE,MAAM,cAAc,CAAA"}
+\ No newline at end of file
+diff --git a/node_modules/react-native-unistyles/lib/typescript/src/web/index.d.ts b/node_modules/react-native-unistyles/lib/typescript/src/web/index.d.ts
+index 571a53c..8995bfd 100644
+--- a/node_modules/react-native-unistyles/lib/typescript/src/web/index.d.ts
++++ b/node_modules/react-native-unistyles/lib/typescript/src/web/index.d.ts
+@@ -1,26 +1,7 @@
+-import type { CreateUnistylesStyleSheet } from '../types';
+-export declare const StyleSheet: {
+-    configure: (config: import("../specs/StyleSheet").UnistylesConfig) => void;
+-    create: CreateUnistylesStyleSheet;
+-    absoluteFill: {
+-        position: string;
+-        left: number;
+-        top: number;
+-        right: number;
+-        bottom: number;
+-    };
+-    absoluteFillObject: {
+-        position: string;
+-        left: number;
+-        top: number;
+-        right: number;
+-        bottom: number;
+-    };
+-    compose: (a: object, b: object) => object;
+-    flatten: (...styles: Array<object>) => object;
+-    hairlineWidth: number;
+-};
+-export { UnistylesRuntime } from './runtime';
+-export { UnistylesShadowRegistry } from './shadowRegistry';
++import type { StyleSheet as NativeStyleSheet } from '../specs/StyleSheet';
++import type { Runtime as NativeUnistylesRuntime } from '../specs/UnistylesRuntime';
++export declare const StyleSheet: typeof NativeStyleSheet;
++export declare const UnistylesRuntime: typeof NativeUnistylesRuntime;
+ export * from './mock';
++export * from './shadowRegistry';
+ //# sourceMappingURL=index.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/react-native-unistyles/lib/typescript/src/web/index.d.ts.map b/node_modules/react-native-unistyles/lib/typescript/src/web/index.d.ts.map
+index b91df3b..23237f4 100644
+--- a/node_modules/react-native-unistyles/lib/typescript/src/web/index.d.ts.map
++++ b/node_modules/react-native-unistyles/lib/typescript/src/web/index.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../src/web/index.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAE,yBAAyB,EAAE,MAAM,UAAU,CAAA;AAEzD,eAAO,MAAM,UAAU;;YAED,yBAAyB;;;;;;;;;;;;;;;iBAe9B,MAAM,KAAK,MAAM;yBACT,KAAK,CAAC,MAAM,CAAC;mBACd,MAAM;CAC7B,CAAA;AAED,OAAO,EAAE,gBAAgB,EAAE,MAAM,WAAW,CAAA;AAC5C,OAAO,EAAE,uBAAuB,EAAE,MAAM,kBAAkB,CAAA;AAC1D,cAAc,QAAQ,CAAA"}
+\ No newline at end of file
++{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../src/web/index.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAE,UAAU,IAAI,gBAAgB,EAAE,MAAM,qBAAqB,CAAA;AAEzE,OAAO,KAAK,EAAE,OAAO,IAAI,sBAAsB,EAAE,MAAM,2BAA2B,CAAA;AAElF,eAAO,MAAM,UAAU,EAoBP,OAAO,gBAAgB,CAAA;AAEvC,eAAO,MAAM,gBAAgB,EAAqC,OAAO,sBAAsB,CAAA;AAE/F,cAAc,QAAQ,CAAA;AACtB,cAAc,kBAAkB,CAAA"}
+\ No newline at end of file
+diff --git a/node_modules/react-native-unistyles/src/core/withUnistyles/useDependencies.ts b/node_modules/react-native-unistyles/src/core/withUnistyles/useDependencies.ts
+index 0161205..e1873ce 100644
+--- a/node_modules/react-native-unistyles/src/core/withUnistyles/useDependencies.ts
++++ b/node_modules/react-native-unistyles/src/core/withUnistyles/useDependencies.ts
+@@ -5,6 +5,11 @@ import { UnistyleDependency } from '../../specs/NativePlatform'
+ import type { UnistylesTheme } from '../../types'
+ import type { Mappings } from './types'
+ 
++const getMiniRuntime = (): UnistylesMiniRuntime => {
++    // @ts-expect-error This is hidden from TS
++    return UnistylesRuntime.miniRuntime
++}
++
+ const RTDependencyMap = {
+     breakpoint: UnistyleDependency.Breakpoints,
+     colorScheme: UnistyleDependency.ColorScheme,
+@@ -64,7 +69,7 @@ export const useDependencies = (listener: (props: ListenerProps) => VoidFunction
+                     return target[prop]
+                 }
+             })
+-            const proxifiedRuntime = new Proxy(UnistylesRuntime.miniRuntime, {
++            const proxifiedRuntime = new Proxy(getMiniRuntime(), {
+                 get: (target, prop) => {
+                     if (prop in RTDependencyMap) {
+                         dependencies.add(RTDependencyMap[prop as keyof typeof RTDependencyMap])
+diff --git a/node_modules/react-native-unistyles/src/index.ts b/node_modules/react-native-unistyles/src/index.ts
+index b35100a..181e283 100644
+--- a/node_modules/react-native-unistyles/src/index.ts
++++ b/node_modules/react-native-unistyles/src/index.ts
+@@ -1,4 +1,4 @@
+-export * from './specs'
++export { StyleSheet, UnistylesRuntime, StatusBar, NavigationBar } from './specs'
+ export { mq } from './mq'
+ export type { UnistylesThemes, UnistylesBreakpoints } from './global'
+ export { createUnistylesComponent, withUnistyles } from './core'
+diff --git a/node_modules/react-native-unistyles/src/web/index.ts b/node_modules/react-native-unistyles/src/web/index.ts
+index 7e80a75..28607f3 100644
+--- a/node_modules/react-native-unistyles/src/web/index.ts
++++ b/node_modules/react-native-unistyles/src/web/index.ts
+@@ -1,11 +1,13 @@
+ import { create } from './create'
+ import { UnistylesState } from './state'
+ import { deepMergeObjects } from '../utils'
+-import type { CreateUnistylesStyleSheet } from '../types'
++import type { StyleSheet as NativeStyleSheet } from '../specs/StyleSheet'
++import { UnistylesRuntime as UnistylesRuntimeWeb } from './runtime'
++import type { Runtime as NativeUnistylesRuntime } from '../specs/UnistylesRuntime'
+ 
+ export const StyleSheet = {
+     configure: UnistylesState.init,
+-    create: create as CreateUnistylesStyleSheet,
++    create: create,
+     absoluteFill: {
+         position: 'absolute',
+         left: 0,
+@@ -22,9 +24,10 @@ export const StyleSheet = {
+     },
+     compose: (a: object, b: object) => deepMergeObjects(a, b),
+     flatten: (...styles: Array<object>) => deepMergeObjects(...styles),
+-    hairlineWidth: 1 as number
+-}
++    hairlineWidth: 1
++} as unknown as typeof NativeStyleSheet
++
++export const UnistylesRuntime = UnistylesRuntimeWeb as unknown as typeof NativeUnistylesRuntime
+ 
+-export { UnistylesRuntime } from './runtime'
+-export { UnistylesShadowRegistry } from './shadowRegistry'
+ export * from './mock'
++export * from './shadowRegistry'

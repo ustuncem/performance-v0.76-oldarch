@@ -1,0 +1,11 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#*": ["src/*"],
+      "#authentication": ["./src/features/authentication/index", "./src/features/authentication/*"],
+      "#onboarding": ["./src/features/onboarding/index", "./src/features/onboarding/*"]
+    }
+  }
+}

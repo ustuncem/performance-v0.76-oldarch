@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container component should match the snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "paddingHorizontal": 16,
+      },
+      undefined,
+    ]
+  }
+  testID="container"
+>
+  <Text
+    style={
+      [
+        {
+          "color": "#525252",
+          "fontFamily": "Inter-Regular",
+          "fontSize": 14,
+        },
+        undefined,
+      ]
+    }
+  >
+    Test Child
+  </Text>
+</View>
+`;

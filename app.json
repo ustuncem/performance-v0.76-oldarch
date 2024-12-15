@@ -1,0 +1,78 @@
+{
+  "name": "buum-e",
+  "scheme": "buume",
+  "icon": "./src/assets/splash/icon.png",
+  "plugins": [
+    [
+      "./withCustomIQKeyboardManager"
+    ],
+    "expo-router",
+    [
+      "expo-image-picker",
+      {
+        "photosPermission": "The app accesses your photos to let you share them with your friends."
+      }
+    ],
+    [
+      "expo-location",
+      {
+        "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+      }
+    ],
+    [
+      "expo-font",
+      {
+        "fonts": [
+          "node_modules/@expo-google-fonts/poppins/Poppins_100Thin.ttf",
+          "node_modules/@expo-google-fonts/poppins/Poppins_200ExtraLight.ttf",
+          "node_modules/@expo-google-fonts/poppins/Poppins_300Light.ttf",
+          "node_modules/@expo-google-fonts/poppins/Poppins_400Regular.ttf",
+          "node_modules/@expo-google-fonts/poppins/Poppins_500Medium.ttf",
+          "node_modules/@expo-google-fonts/poppins/Poppins_600SemiBold.ttf",
+          "node_modules/@expo-google-fonts/poppins/Poppins_700Bold.ttf",
+          "node_modules/@expo-google-fonts/poppins/Poppins_800ExtraBold.ttf",
+          "node_modules/@expo-google-fonts/poppins/Poppins_900Black.ttf"
+        ]
+      }
+    ],
+    [
+      "expo-splash-screen",
+      {
+        "backgroundColor": "#FFFFFF",
+        "image": "./src/assets/splash/splash-icon.png",
+        "dark": {
+          "image": "./src/assets/splash/splash-icon.png",
+          "backgroundColor": "#000000"
+        }
+      }
+    ],
+    [
+      "expo-build-properties",
+      {
+        "ios": {
+          "useFrameworks": "static"
+        },
+        "android": {
+          "extraMavenRepos": [
+            "../../node_modules/@notifee/react-native/android/libs"
+          ]
+        }
+      }
+    ]
+  ],
+  "orientation": "portrait",
+  "android": {
+    "package": "com.sgc.buume",
+    "adaptiveIcon": {
+      "foregroundImage": "./src/assets/splash/adaptive-icon.png",
+      "backgroundColor": "#FFFFFF"
+    },
+  },
+  "ios": {
+    "bundleIdentifier": "com.sgc.buume",
+    "entitlements": {
+      "aps-environment": "production"
+    }
+  },
+  "newArchEnabled": false
+}
